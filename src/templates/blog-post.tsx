@@ -4,7 +4,6 @@ import { Link, graphql } from "gatsby";
 import Bio from "../components/bio";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import { rhythm, scale } from "../utils/typography";
 
 interface Props {
   data: {
@@ -20,49 +19,21 @@ interface Props {
 
 const BlogPostTemplate = ({ data, pageContext }: Props): React.ReactElement => {
   const post = data.markdownRemark;
-  const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
 
   return (
-    <Layout location={window.location} title={siteTitle}>
+    <Layout>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <h1
-        style={{
-          marginTop: rhythm(1),
-          marginBottom: 0
-        }}
-      >
-        {post.frontmatter.title}
-      </h1>
-      <p
-        style={{
-          ...scale(-1 / 5),
-          display: `block`,
-          marginBottom: rhythm(1)
-        }}
-      >
-        {post.frontmatter.date}
-      </p>
+      <h1>{post.frontmatter.title}</h1>
+      <p>{post.frontmatter.date}</p>
       <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      <hr
-        style={{
-          marginBottom: rhythm(1)
-        }}
-      />
+      <hr />
       <Bio />
 
-      <ul
-        style={{
-          display: `flex`,
-          flexWrap: `wrap`,
-          justifyContent: `space-between`,
-          listStyle: `none`,
-          padding: 0
-        }}
-      >
+      <ul>
         <li>
           {previous && (
             <Link to={previous.fields.slug} rel="prev">
