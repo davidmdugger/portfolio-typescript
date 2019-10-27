@@ -25,3 +25,8 @@ Also, setting up linting and lint:fix to run through all of my files to cleanup 
 
 4.  **Lint Staged**
     _Why_: This allows me to only run the linting and type-checking on currently staged files during a pre commit to enforce my linting and type checking configurations.
+
+5.  **Styled Components**
+    _Why_: Styled components is an elegant CSS in JS solution that allows me to encapsulate styles at the components level. In addition, I can create a theme with a style guide to enforce style decisions. The style guide will include fonts, colors, margins, layouts, etc.
+
+    I'll also begin to build out a component library for this project and enforcing the styles via typescript and pre-commit linting with husky and lintstaged will ensure I'm following my own style guide.
