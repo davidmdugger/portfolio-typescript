@@ -1,15 +1,26 @@
 import React from "react";
+import { ThemeProvider } from "styled-components";
+import theme from "../theme";
+import GlobalStyles from "../theme/GlobalStyles";
 
 interface Props {
-  children: React.ReactNode | React.ReactNode[];
+  location?: Location;
+  title?: string;
+  children?: React.ReactNode | React.ReactNode[];
 }
 
-export default ({ children }: Props): React.ReactElement => (
-  <div>
-    <h1>David Dugger</h1>
-    {children}
-    <footer>
-      © {new Date().getFullYear()} David Dugger. All rights reserved
-    </footer>
-  </div>
-);
+export default ({ children }: Props): React.ReactElement => {
+  // @ts-ignore-next-line
+  const rootPath = `${__PATH_PREFIX__}/`; // eslint-disable-line no-undef
+
+  console.log(rootPath);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyles />
+        {children}
+      </>
+    </ThemeProvider>
+  );
+};
