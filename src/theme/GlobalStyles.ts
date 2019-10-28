@@ -8,6 +8,6 @@ export default createGlobalStyle`
   }
   body {
     width: 100%;
-    max-width: 1200px;
+    max-width: 2400px;
   }
 `;

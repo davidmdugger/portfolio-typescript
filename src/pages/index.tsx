@@ -1,15 +1,216 @@
 import React from "react";
+import { graphql } from "gatsby";
+import styled from "styled-components";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
-const Home = (): React.ReactElement => {
+interface Props {
+  data: {
+    allMarkdownRemark: any;
+    site: {
+      siteMetadata: {
+        title: string;
+      };
+    };
+    avatar: {
+      childImageSharp: {
+        fixed: {
+          src: string;
+        };
+      };
+    };
+  };
+}
+
+interface NameProps {
+  outline?: boolean;
+}
+
+const HomepageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme: { colors } }) => colors.black};
+  color: ${({ theme: { colors } }) => colors.white};
+  padding: 2% 4%;
+`;
+
+const SectionWrapper = styled.div`
+  z-index: 10;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: ${({ theme: { breakpoints } }) =>
+    breakpoints.tabletLandscape + "px"};
+  margin: 0 auto;
+
+  ${({ theme: { media } }) => media.mobileLandscape} {
+    flex-direction: row;
+    align-items: center;
+  }
+`;
+
+const Section = styled.div`
+  z-index: 10;
+  /* ${({ theme: { media } }) => media.tabletPortrait} { */
+  /* width: 50%; */
+  /* } */
+`;
+
+const Name = styled.h2<NameProps>`
+  font-family: ${({ theme: { fonts } }) => fonts.saira};
+  font-weight: 800;
+  font-size: 50px;
+  text-rendering: optimizeLegibility;
+  line-height: 1;
+
+  color: ${({ theme: { colors }, outline }) =>
+    outline ? colors.black : colors.white};
+  text-shadow: ${({ theme: { colors }, outline }) =>
+    outline ? `${colors.brown} 0px 0px 2px` : "none"};
+
+  ${({ theme: { media } }) => media.tabletPortrait} {
+    font-size: 140px;
+  }
+
+  ${({ theme: { media } }) => media.tabletLandscape} {
+    font-size: 180px;
+  }
+
+  ${({ theme: { media } }) => media.laptopLandscape} {
+    font-size: 220px;
+  }
+`;
+
+const AboutShortened = styled.p`
+  font-size: 12px;
+  font-weight: 300;
+  color: ${({ theme: { colors } }) => colors.brown};
+  font-family: ${({ theme: { fonts } }) => fonts.roboto};
+  ${({ theme: { media } }) => media.tabletPortrait} {
+    font-size: 18px;
+  }
+`;
+
+const Image = styled.img`
+  position: absolute;
+  width: 100px;
+  top: 25px;
+  right: 0;
+  border: 1px solid ${({ theme: { colors } }) => colors.offWhite};
+  border-radius: 50%;
+  animation-name: shifty;
+  animation-duration: 4500ms;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+
+  ${({ theme: { media } }) => media.mobileLandscape} {
+    width: 150px;
+  }
+
+  ${({ theme: { media } }) => media.tabletPortrait} {
+    width: 300px;
+    top: 175px;
+  }
+
+  @keyframes shifty {
+    0% {
+      transform: translateX(-2px);
+    }
+
+    25% {
+      transform: translateY(5px);
+    }
+    50% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+`;
+
+const Home = ({ data }: Props): React.ReactElement => {
+  const siteTitle = data.site.siteMetadata.title;
+  const avatar = data.avatar.childImageSharp.fixed.src;
+
   return (
-    <Layout>
+    <Layout location={window.location} title={siteTitle}>
       <SEO title="Home" />
-      <h1>HOME</h1>
+      <HomepageWrapper>
+        <SectionWrapper>
+          <Section>
+            <AboutShortened>CREATOR OF GREAT THINGS</AboutShortened>
+            <AboutShortened>ON THE WEB FOR OVER</AboutShortened>
+            <AboutShortened>THREE YEARS AND COUNTING</AboutShortened>
+          </Section>
+          <Section>
+            <Name>DAVID</Name>
+          </Section>
+          <Image src={avatar} alt="david dugger" />
+          <Section>
+            <Name>DUGGER</Name>
+          </Section>
+          <Section>
+            <Name outline>FULL STACK</Name>
+          </Section>
+          {/* <Section>
+            <Name outline>STACK</Name>
+          </Section> */}
+          <Section>
+            <Name>DEVELOPER</Name>
+          </Section>
+        </SectionWrapper>
+        {/* <Wrapping>
+          <AboutShortenedWrapper>
+            <AboutShortened>I HAVE BEEN BUILDING PRODUCTS</AboutShortened>
+            <AboutShortened>ON THE WEB FOR OVER</AboutShortened>
+            <AboutShortened>
+              THREE YEARS
+            </AboutShortened>
+          </AboutShortenedWrapper>
+          <Name>DAVID DUGGER</Name>
+          <Name>FULL STACK DEVELOPER</Name>
+        </Wrapping> */}
+      </HomepageWrapper>
     </Layout>
   );
 };
 
 export default Home;
+
+export const pageQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    avatar: file(absolutePath: { regex: "/main.jpg/" }) {
+      childImageSharp {
+        fixed(width: 300, height: 300) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            description
+          }
+        }
+      }
+    }
+  }
+`;

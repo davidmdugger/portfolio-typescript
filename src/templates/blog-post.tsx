@@ -19,10 +19,11 @@ interface Props {
 
 const BlogPostTemplate = ({ data, pageContext }: Props): React.ReactElement => {
   const post = data.markdownRemark;
+  const siteTitle = data.site.siteMetadata.title;
   const { previous, next } = pageContext;
 
   return (
-    <Layout>
+    <Layout location={window.location} title={siteTitle}>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}

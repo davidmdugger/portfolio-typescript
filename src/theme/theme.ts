@@ -1,29 +1,62 @@
 interface Theme {
   fonts: {
-    heading: string;
-    paragraph: string;
+    saira: string;
+    lato: string;
+    roboto: string;
   };
   colors: {
-    primary: string;
-    secondary: string;
+    black: string;
+    lightred: string;
+    brown: string;
     accent: string;
-    alert: string;
     white: string;
+    offWhite: string;
   };
+  media: {
+    [key: string]: string;
+  };
+  breakpoints: Breakpoints;
+}
+
+interface Breakpoints {
+  [key: string]: number;
+}
+
+const breakpoints: Breakpoints = {
+  mobilePortrait: 320, // smartphones, portrait iPhone, portrait 480x320 phones (Android)
+  mobileLandscape: 480, // smartphones, Android phones, landscape iPhone
+  tabletPortrait: 600, // portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android)
+  tabletLandscape: 801, // tablet, landscape iPad, lo-res laptops ands desktops
+  laptopLandscape: 1025, // big landscape tablets, laptops, and desktops
+  largeLandscape: 1281 // hi-res laptops and desktops
+};
+
+function getBreakpoints(breakpoints: Breakpoints) {
+  const media = {};
+  Object.keys(breakpoints).forEach(key => {
+    return (media[key] = `@media (min-width: ${breakpoints[key]}px)`);
+  });
+  return media;
 }
 
 const theme: Theme = {
   fonts: {
-    heading: "Impact",
-    paragraph: "Arial"
+    saira: "'Saira Extra Condensed', sans-serif",
+    lato: "'Lato', sans-serif",
+    roboto: "'Roboto', sans-serif"
   },
   colors: {
-    primary: "#2128BD",
-    secondary: "#FECC58",
-    accent: "#FFE5E4",
-    alert: "#FF0000",
-    white: "#F8F8F8"
-  }
+    black: "#090909",
+    lightred: "rgb(81,80,81)",
+    brown: "#CCCC99",
+    accent: "#313131",
+    white: "#FFF",
+    offWhite: "#FAFAFA"
+  },
+  media: {},
+  breakpoints
 };
+
+theme.media = getBreakpoints(breakpoints);
 
 export default theme;
