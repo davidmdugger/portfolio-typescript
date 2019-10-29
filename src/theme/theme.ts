@@ -27,8 +27,8 @@ const breakpoints: Breakpoints = {
   mobileLandscape: 480, // smartphones, Android phones, landscape iPhone
   tabletPortrait: 600, // portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android)
   tabletLandscape: 801, // tablet, landscape iPad, lo-res laptops ands desktops
-  laptopLandscape: 1025, // big landscape tablets, laptops, and desktops
-  largeLandscape: 1281 // hi-res laptops and desktops
+  laptopLandscape: 950, // big landscape tablets, laptops, and desktops
+  largeLandscape: 1200 // hi-res laptops and desktops
 };
 
 function getBreakpoints(breakpoints: Breakpoints) {
