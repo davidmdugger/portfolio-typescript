@@ -7,6 +7,7 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
   }
+  
   body {
     width: 100%;
     max-width: 2400px;

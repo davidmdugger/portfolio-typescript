@@ -33,6 +33,13 @@ const HomepageWrapper = styled.div`
   background-color: ${({ theme: { colors } }) => colors.black};
   color: ${({ theme: { colors } }) => colors.white};
   padding: 2% 4%;
+
+  ${({ theme: { media } }) => media.tabletLandscape} {
+    margin-left: 30px;
+  }
+  ${({ theme: { media } }) => media.laptopLandscape} {
+    margin-left: 0;
+  }
 `;
 
 const SectionWrapper = styled.div`
@@ -45,7 +52,7 @@ const SectionWrapper = styled.div`
   align-items: flex-start;
   width: 100%;
   max-width: ${({ theme: { breakpoints } }) =>
-    breakpoints.tabletLandscape + "px"};
+    breakpoints.laptopLandscape + "px"};
   margin: 0 auto;
 
   ${({ theme: { media } }) => media.mobileLandscape} {
@@ -56,9 +63,6 @@ const SectionWrapper = styled.div`
 
 const Section = styled.div`
   z-index: 10;
-  /* ${({ theme: { media } }) => media.tabletPortrait} { */
-  /* width: 50%; */
-  /* } */
 `;
 
 const Name = styled.h2<NameProps>`
@@ -69,20 +73,27 @@ const Name = styled.h2<NameProps>`
   line-height: 1;
 
   color: ${({ theme: { colors }, outline }) =>
-    outline ? colors.black : colors.white};
+    outline ? colors.black : colors.offWhite};
   text-shadow: ${({ theme: { colors }, outline }) =>
     outline ? `${colors.brown} 0px 0px 2px` : "none"};
 
+  ${({ theme: { media } }) => media.mobileLandscape} {
+    font-size: 100px;
+  }
   ${({ theme: { media } }) => media.tabletPortrait} {
     font-size: 140px;
   }
 
   ${({ theme: { media } }) => media.tabletLandscape} {
-    font-size: 180px;
+    font-size: 150px;
   }
 
   ${({ theme: { media } }) => media.laptopLandscape} {
     font-size: 220px;
+  }
+
+  ${({ theme: { media } }) => media.largeLandscape} {
+    font-size: calc(220px + 2vw);
   }
 `;
 
@@ -99,7 +110,7 @@ const AboutShortened = styled.p`
 const Image = styled.img`
   position: absolute;
   width: 100px;
-  top: 25px;
+  top: 55px;
   right: 0;
   border: 1px solid ${({ theme: { colors } }) => colors.offWhite};
   border-radius: 50%;
@@ -158,24 +169,11 @@ const Home = ({ data }: Props): React.ReactElement => {
           <Section>
             <Name outline>FULL STACK</Name>
           </Section>
-          {/* <Section>
-            <Name outline>STACK</Name>
-          </Section> */}
+
           <Section>
             <Name>DEVELOPER</Name>
           </Section>
         </SectionWrapper>
-        {/* <Wrapping>
-          <AboutShortenedWrapper>
-            <AboutShortened>I HAVE BEEN BUILDING PRODUCTS</AboutShortened>
-            <AboutShortened>ON THE WEB FOR OVER</AboutShortened>
-            <AboutShortened>
-              THREE YEARS
-            </AboutShortened>
-          </AboutShortenedWrapper>
-          <Name>DAVID DUGGER</Name>
-          <Name>FULL STACK DEVELOPER</Name>
-        </Wrapping> */}
       </HomepageWrapper>
     </Layout>
   );
