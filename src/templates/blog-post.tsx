@@ -23,7 +23,7 @@ const BlogPostTemplate = ({ data, pageContext }: Props): React.ReactElement => {
   const { previous, next } = pageContext;
 
   return (
-    <Layout location={window && window.location} title={siteTitle}>
+    <Layout title={siteTitle}>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}

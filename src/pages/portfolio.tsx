@@ -18,11 +18,7 @@ export default (data): React.ReactElement => {
   const images = data.data.allImageSharp.edges.map(img => img.node.fixed.src);
 
   return (
-    <Layout
-      location={window && window.location}
-      title="Dugger's Portfolio"
-      pageTitle="Portfolio"
-    >
+    <Layout title="Dugger's Portfolio" pageTitle="Portfolio">
       <SEO title="Portfolio" />
       <CardsWrapper>
         {projects.map(project => {
