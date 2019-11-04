@@ -6,6 +6,7 @@ interface Theme {
   };
   colors: {
     black: string;
+    darkBlue: string;
     lightred: string;
     brown: string;
     accent: string;
@@ -47,6 +48,7 @@ const theme: Theme = {
   },
   colors: {
     black: "#090909",
+    darkBlue: "#121133",
     lightred: "rgb(81,80,81)",
     brown: "#CCCC99",
     accent: "#313131",

@@ -4,6 +4,15 @@ import styled from "styled-components";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import { skills } from "../skills";
+
+interface Images {
+  node: {
+    fixed: {
+      src: string;
+    };
+  };
+}
 
 interface Props {
   data: {
@@ -20,6 +29,9 @@ interface Props {
         };
       };
     };
+    allImageSharp: {
+      edges: Array<Images>;
+    };
   };
 }
 
@@ -28,17 +40,13 @@ interface NameProps {
 }
 
 const HomepageWrapper = styled.div`
-  width: 100%;
   height: 100%;
   background-color: ${({ theme: { colors } }) => colors.black};
   color: ${({ theme: { colors } }) => colors.white};
   padding: 2% 4%;
 
   ${({ theme: { media } }) => media.tabletLandscape} {
-    margin-left: 30px;
-  }
-  ${({ theme: { media } }) => media.laptopLandscape} {
-    margin-left: 0;
+    margin-left: 50px;
   }
 `;
 
@@ -145,6 +153,41 @@ const Image = styled.img`
   }
 `;
 
+const SkillsHeading = styled.h3`
+  color: ${({ theme: { colors } }) => colors.brown};
+  font-family: ${({ theme: { fonts } }) => fonts.saira};
+  font-size: 60px;
+  margin: 80px 0 25px;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+const SkillsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+  margin: 0 auto;
+  max-width: 745px;
+  margin: 0 auto;
+`;
+
+const Skill = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 80px;
+  margin: 2px;
+  background-color: ${({ theme: { colors } }) => colors.brown};
+  color: ${({ theme: { colors } }) => colors.black};
+  font-family: ${({ theme: { fonts } }) => fonts.saira};
+
+  :nth-child(even) {
+    background-color: ${({ theme: { colors } }) => colors.offWhite};
+  }
+`;
+
 const Home = ({ data }: Props): React.ReactElement => {
   const siteTitle = data.site.siteMetadata.title;
   const avatar = data.avatar.childImageSharp.fixed.src;
@@ -174,6 +217,12 @@ const Home = ({ data }: Props): React.ReactElement => {
             <Name>DEVELOPER</Name>
           </Section>
         </SectionWrapper>
+        <SkillsHeading>Skills</SkillsHeading>
+        <SkillsWrapper>
+          {skills.map(skill => (
+            <Skill key={skill}>{skill}</Skill>
+          ))}
+        </SkillsWrapper>
       </HomepageWrapper>
     </Layout>
   );
@@ -192,6 +241,16 @@ export const pageQuery = graphql`
       childImageSharp {
         fixed(width: 300, height: 300) {
           ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    allImageSharp {
+      edges {
+        node {
+          id
+          fixed {
+            src
+          }
         }
       }
     }
