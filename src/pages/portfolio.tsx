@@ -39,7 +39,7 @@ export default (data): React.ReactElement => {
 
           return (
             <Card
-              key={name}
+              key={project.name}
               name={project.name}
               image={mainProjectImg}
               skills={project.skills}
