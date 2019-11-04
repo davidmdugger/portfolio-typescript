@@ -19,7 +19,7 @@ export default (data): React.ReactElement => {
 
   return (
     <Layout
-      location={window.location}
+      location={window && window.location}
       title="Dugger's Portfolio"
       pageTitle="Portfolio"
     >

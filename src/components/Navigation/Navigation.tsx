@@ -121,7 +121,7 @@ const LinkItems = (): React.ReactElement[] => {
   return routes.map((route: any) => (
     <LinkWrapper key={route.src}>
       <LinkStyled
-        isActive={route.src === window.location.pathname}
+        isActive={window && route.src === window.location.pathname}
         to={route.src}
       >
         {route.text.toUpperCase()}
@@ -157,11 +157,13 @@ const SocialIcons = (): React.ReactElement => (
 );
 
 export default () => {
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const initWidth = window ? window.innerWidth : 0;
+  const [width, setWidth] = React.useState(initWidth);
   const [isMenuOpen, setMenu] = React.useState(false);
 
   React.useEffect(() => {
-    window.addEventListener("resize", () => setWidth(window.innerWidth));
+    window &&
+      window.addEventListener("resize", () => setWidth(window.innerWidth));
   }, [width]);
 
   const toggleMenu = (): void => {

@@ -193,7 +193,7 @@ const Home = ({ data }: Props): React.ReactElement => {
   const avatar = data.avatar.childImageSharp.fixed.src;
 
   return (
-    <Layout location={window.location} title={siteTitle}>
+    <Layout location={window && window.location} title={siteTitle}>
       <SEO title="Home" />
       <HomepageWrapper>
         <SectionWrapper>
