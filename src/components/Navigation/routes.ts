@@ -4,10 +4,6 @@ export default [
     src: "/"
   },
   {
-    text: "contact",
-    src: "/contact"
-  },
-  {
     text: "about",
     src: "/about"
   },

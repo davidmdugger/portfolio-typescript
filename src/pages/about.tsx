@@ -1,7 +1,15 @@
 import React from "react";
 
-export default (): React.ReactElement => (
-  <div>
-    <h1>About</h1>
-  </div>
-);
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+
+export default (): React.ReactElement => {
+  return (
+    <Layout location={window.location} title="About David" pageTitle="About">
+      <SEO title="Portfolio" />
+      <div>
+        <h1 style={{ textAlign: "center" }}>About Coming Soon</h1>
+      </div>
+    </Layout>
+  );
+};
