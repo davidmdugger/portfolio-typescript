@@ -169,10 +169,6 @@ export default () => {
     const windowWidth =
       typeof window !== undefined && window ? window.innerWidth : 0;
 
-    console.log("windowWidth: ", windowWidth);
-
-    console.log(window.innerWidth);
-
     typeof window !== undefined &&
       window.addEventListener("resize", () => setWidth(windowWidth));
   }, [width]);
