@@ -161,13 +161,20 @@ const SocialIcons = (): React.ReactElement => (
 );
 
 export default () => {
-  const [width, setWidth] = React.useState(0);
+  const initWidth = 0;
+  const [width, setWidth] = React.useState(initWidth);
   const [isMenuOpen, setMenu] = React.useState(false);
 
   React.useEffect(() => {
+    const windowWidth =
+      typeof window !== undefined && window ? window.innerWidth : 0;
+
+    console.log("windowWidth: ", windowWidth);
+
+    console.log(window.innerWidth);
+
     typeof window !== undefined &&
-      window &&
-      window.addEventListener("resize", () => setWidth(window.innerWidth));
+      window.addEventListener("resize", () => setWidth(windowWidth));
   }, [width]);
 
   const toggleMenu = (): void => {
