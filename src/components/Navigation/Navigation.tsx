@@ -4,9 +4,15 @@ import styled from "styled-components";
 import { FaGithub, FaTwitter, FaLinkedin, FaBars } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import routes from "./routes";
+import Theme from '../../theme/theme';
+import { useWindowWidth } from "../../hooks";
 
 interface LinkProps {
   isActive?: boolean;
+}
+
+interface NavigationProps {
+  theme: typeof Theme;
 }
 
 const Header = styled.header`
@@ -59,22 +65,23 @@ const LinkWrapper = styled.div`
   }
 `;
 
-const LinkStyled = styled(Link)<LinkProps>`
+const LinkStyled = styled(Link) <LinkProps>`
   text-decoration: none;
   font-family: ${({ theme: { fonts } }) => fonts.saira};
   color: ${({ isActive, theme: { colors } }) =>
     isActive ? colors.black : colors.offWhite};
   font-size: 32px;
   transition: 300ms;
+  text-transform: uppercase;
 
   ${({ theme: { media } }) => media.tabletLandscape} {
     height: 23px;
     font-size: 18px;
     color: ${({ isActive, theme: { colors } }) =>
-      isActive ? colors.brown : colors.offWhite};
+    isActive ? colors.brown : colors.offWhite};
     border-bottom: 1px solid
       ${({ isActive, theme: { colors } }) =>
-        isActive ? colors.brown : "transparent"};
+    isActive ? colors.brown : "transparent"};
     :hover {
       color: ${({ theme: { colors } }) => colors.brown};
       border-bottom: 1px solid ${({ theme: { colors } }) => colors.brown};
@@ -160,35 +167,27 @@ const SocialIcons = (): React.ReactElement => (
   </SocialIconsWrapper>
 );
 
-export default () => {
-  const initWidth = 0;
-  const [width, setWidth] = React.useState(initWidth);
-  const [isMenuOpen, setMenu] = React.useState(false);
-
-  React.useEffect(() => {
-    const windowWidth =
-      typeof window !== undefined && window ? window.innerWidth : 0;
-
-    typeof window !== undefined &&
-      window.addEventListener("resize", () => setWidth(windowWidth));
-  }, [width]);
+export default ({ theme: { breakpoints } }: NavigationProps): React.ReactElement => {
+  const width = useWindowWidth();
+  const [isMenuOpen, setMenu] = React.useState<boolean>(false);
 
   const toggleMenu = (): void => {
     setMenu(!isMenuOpen);
   };
 
   const Menu = (): React.ReactElement => {
-    if (width > 800)
+    if (width && width > breakpoints.tabletLandscape) {
       return (
         <Header>
           {LinkItems()}
           {SocialIcons()}
         </Header>
       );
+    }
 
     return isMenuOpen ? (
       <Header>
-        {width < 801 && (
+        {width < breakpoints.tabletLandscape && (
           <Hamburger>
             <MdClose onClick={toggleMenu} />
           </Hamburger>
@@ -197,10 +196,10 @@ export default () => {
         {SocialIcons()}
       </Header>
     ) : (
-      <Hamburger onClick={toggleMenu}>
-        <FaBars />
-      </Hamburger>
-    );
+        <Hamburger onClick={toggleMenu}>
+          <FaBars />
+        </Hamburger>
+      );
   };
 
   return <>{Menu()}</>;

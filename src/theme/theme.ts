@@ -1,4 +1,4 @@
-interface Theme {
+export interface Theme {
   fonts: {
     saira: string;
     lato: string;
@@ -27,7 +27,7 @@ const breakpoints: Breakpoints = {
   mobilePortrait: 320, // smartphones, portrait iPhone, portrait 480x320 phones (Android)
   mobileLandscape: 480, // smartphones, Android phones, landscape iPhone
   tabletPortrait: 600, // portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android)
-  tabletLandscape: 801, // tablet, landscape iPad, lo-res laptops ands desktops
+  tabletLandscape: 800, // tablet, landscape iPad, lo-res laptops ands desktops
   laptopLandscape: 950, // big landscape tablets, laptops, and desktops
   largeLandscape: 1200 // hi-res laptops and desktops
 };

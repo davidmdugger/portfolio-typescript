@@ -47,7 +47,7 @@ export default ({ children, pageTitle }: Props): React.ReactElement => {
   return (
     <ThemeProvider theme={theme}>
       <>
-        <Navigation />
+        <Navigation theme={theme} />
         <LayoutWrapper>
           <GlobalStyles />
           {pageTitle && <PageTitle>{pageTitle}</PageTitle>}
